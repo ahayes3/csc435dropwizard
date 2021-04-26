@@ -12,10 +12,10 @@ object DWcsc435Application : Application<CharacterSheetConfiguration>() {
 
 
     override fun initialize(bootstrap: Bootstrap<CharacterSheetConfiguration>) {
-        TODO()
+
     }
 
     override fun run(configuration: CharacterSheetConfiguration?, environment: Environment?) {
-        TODO("Not yet implemented")
+
     }
 }
