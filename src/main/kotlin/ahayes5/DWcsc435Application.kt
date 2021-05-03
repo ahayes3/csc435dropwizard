@@ -1,33 +1,54 @@
 package ahayes5
 
-import ahayes5.api.character.CharacterDAO
+import ahayes5.api.character.*
+import ahayes5.api.user.User
+import ahayes5.auth.MyAuthorizer
+import ahayes5.auth.MyOauthAuthenticator
 import ahayes5.resources.character.CharacterResource
 import io.dropwizard.Application
-import io.dropwizard.db.PooledDataSourceFactory
-import io.dropwizard.hibernate.HibernateBundle
+import io.dropwizard.auth.AuthDynamicFeature
+import io.dropwizard.auth.oauth.OAuthCredentialAuthFilter
+import io.dropwizard.jdbi3.JdbiFactory
+import io.dropwizard.jersey.jackson.JsonProcessingExceptionMapper
 import io.dropwizard.setup.Bootstrap
 import io.dropwizard.setup.Environment
+import org.jdbi.v3.core.statement.SqlLogger
+import org.jdbi.v3.core.statement.StatementContext
 
 fun main(args:Array<String>) {
     DWcsc435Application.run(*args)
 }
 object DWcsc435Application : Application<CharacterSheetConfiguration>() {
 
-    val hibernate = object: HibernateBundle<CharacterSheetConfiguration>(java.lang.Character::class.java) {
-        override fun getDataSourceFactory(p0: CharacterSheetConfiguration): PooledDataSourceFactory {
-            return p0.getDataSourceFactory()
-        }
-    }
-
-
     override fun initialize(bootstrap: Bootstrap<CharacterSheetConfiguration>) {
-        bootstrap.addBundle(hibernate)
     }
 
     override fun run(configuration: CharacterSheetConfiguration?, environment: Environment?) {
-        val cdao = CharacterDAO(hibernate.sessionFactory)
-        environment?.jersey()?.register(CharacterResource(cdao))
+        val factory = JdbiFactory()
+        val jdbi = factory.build(environment,configuration?.getDataSourceFactory(),"mysql")
+        val myLogger = object: SqlLogger{
+            override fun logBeforeExecution(context: StatementContext?) {
+                println("INFO:   ${context?.renderedSql}")
+            }
+        }
+        jdbi.setSqlLogger(myLogger)
+        val mydao = jdbi.onDemand(CharacterDAO::class.java)
+        environment?.jersey()?.register(CharacterResource(mydao))
+        jdbi.registerRowMapper(CharacterMapper())
+        jdbi.registerRowMapper(ItemsMapper())
+        jdbi.registerRowMapper(ItemNameMapper())
+        jdbi.registerRowMapper(ItemQtyMapper())
+        jdbi.registerRowMapper(ClazzMapper())
+
+        environment?.jersey()?.register(JsonProcessingExceptionMapper(true))
 
 
+        environment?.jersey()?.register(AuthDynamicFeature(
+            OAuthCredentialAuthFilter.Builder<User>()
+                .setAuthenticator(MyOauthAuthenticator())
+                .setAuthorizer(MyAuthorizer())
+                .setPrefix("Bearer")
+                .buildAuthFilter()
+        ))
     }
 }

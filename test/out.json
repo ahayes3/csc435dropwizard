@@ -1,1 +1,24 @@
-{"code":500,"message":"There was an error processing your request. It has been logged (ID ff8da2517fea7ac8)."}
+{
+  "name" : "Jeff",
+  "background" : "Thief",
+  "race" : "Elf",
+  "str" : 10,
+  "dex" : 11,
+  "con" : 12,
+  "intel" : 14,
+  "wis" : 13,
+  "cha" : 15,
+  "ac" : 14,
+  "init" : 0,
+  "speed" : 30,
+  "maxHp" : 27,
+  "skills" : [ "Stealth", "Persuasion", "Sleight of Hand" ],
+  "languages" : [ "Common", "Elvish" ],
+  "tools" : [ "Thieves' tools" ],
+  "items" : {
+    "Spoon" : 2,
+    "Dagger" : 1
+  },
+  "features" : [ "Sneak Attack", "Disengage" ],
+  "id" : 6
+}

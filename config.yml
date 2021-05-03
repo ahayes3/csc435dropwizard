@@ -34,8 +34,8 @@ logging:
     ahayes5: DEBUG
 
     # Redirects SQL logs to a separate file
-    org.hibernate.SQL:
-      level: DEBUG
+    org.jdbi.v3:
+      level: TRACE
 
   # Logback's Time Based Rolling Policy - archivedLogFilenamePattern: /tmp/application-%d{yyyy-MM-dd}.log.gz
   # Logback's Size and Time Based Rolling Policy -  archivedLogFilenamePattern: /tmp/application-%d{yyyy-MM-dd}-%i.log.gz
@@ -70,7 +70,6 @@ database:
 
   # the name of your JDBC driver
   driverClass: com.mysql.cj.jdbc.Driver
-
   # the username
   user: root
 
