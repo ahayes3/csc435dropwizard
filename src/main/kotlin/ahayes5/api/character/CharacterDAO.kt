@@ -10,9 +10,14 @@ import org.jdbi.v3.sqlobject.statement.SqlBatch
 import java.util.*
 
 interface CharacterDAO {
-    @SqlQuery("select * from characters")
-    fun getCharacters():List<Character>
+    @SqlUpdate("insert into user_characters(name,id) values(:name,:id)")
+    fun link(@Bind("id") id:Long,@Bind("name") name:String)
 
+    @SqlQuery("select c.id from user_characters c where c.name=:name")
+    fun getCharacters(@Bind("name") name:String):List<Long>
+
+    @SqlQuery("select c.id from user_characters c")
+    fun getAllCid():List<Long>
 
     @SqlBatch("insert into features(c_id,name) values(:id,:name)")
     fun insertFeatures(@Bind("id")id:Long,@Bind("name") name:List<String>)

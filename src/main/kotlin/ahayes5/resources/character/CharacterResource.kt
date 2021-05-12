@@ -4,8 +4,10 @@ import ahayes5.api.character.Character
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 import ahayes5.api.character.CharacterDAO
+import ahayes5.api.user.User
 import ahayes5.resources.JSONView
 import ahayes5.resources.error.ResourceError
+import io.dropwizard.auth.Auth
 import java.lang.IllegalArgumentException
 import javax.ws.rs.core.Response
 
@@ -14,26 +16,30 @@ import javax.ws.rs.core.Response
 class CharacterResource(private val dao: CharacterDAO) {
     @GET
     @Path("/{id}")
-    fun getId(@PathParam("id") id:Long):Response {
-        return try {
-            val c = getChar(id)
-            return Response.ok(JSONView(c)).build()
-        } catch (e:IllegalArgumentException) {
-            Response.status(400).entity(ResourceError(400,"Invalid id: $id").toJson()).build()
-        }
+    fun getId(@Auth u:User,@PathParam("id") id:Long):Response {
+        if(!dao.getAllCid().contains(id))
+            return Response.status(404,ResourceError(404,"Character $id not found").toJson()).build()
+        else if(!dao.getCharacters(u.name).contains(id))
+            return Response.status(403,ResourceError(403,"Not authorized to access character.").toJson()).build()
+        val c = getChar(id)
+        return Response.ok(JSONView(c)).build()
+//        return try {
+//            val c = getChar(id)
+//            return Response.ok(JSONView(c)).build()
+//        } catch (e:IllegalArgumentException) {
+//            Response.status(404).entity(ResourceError(404,"Invalid id: $id").toJson()).build()
+//        }
     }
 
     @GET
-    fun get():String {
-        TODO()
-
-        //returns all owned characters
+    fun get(@Auth u: User):Response {  //NOT DONE
+        val ids = dao.getCharacters(u.name)
+        return Response.ok(JSONView(ids)).build()
     }
     @POST
-    fun create(c:Character): Response {
-        println("READ JSON")
+    fun create(@Auth u:User,c:Character): Response {
         val res = try {
-            createChar(c)
+            createChar(c,u)
         }catch (e:Exception) {
             e.printStackTrace()
         }
@@ -44,12 +50,8 @@ class CharacterResource(private val dao: CharacterDAO) {
 
     @DELETE
     @Path("/{id}")
-    fun delete(@PathParam("id")id:Long):Response {
-        TODO()
-        //must be logged in (401)
-        //must exists (404)
-        //must be owned (403)
-        val c = getId(id)
+    fun delete(@Auth u:User,@PathParam("id")id:Long):Response {
+        val c = getId(u,id)
         dao.deleteChar(id)
         dao.deleteSkills(id)
         dao.deleteFeatures(id)
@@ -60,7 +62,7 @@ class CharacterResource(private val dao: CharacterDAO) {
         return Response.ok(JSONView(c)).build()
     }
 
-    private fun createChar(c:Character):Character {
+    private fun createChar(c:Character,u:User):Character {
 
         val id = dao.create(c.name,c.background,c.race,c.str,c.dex,c.con,c.intel,c.wis,c.cha,c.ac,c.init,c.speed,c.maxHp)
         c.id = id
@@ -70,6 +72,7 @@ class CharacterResource(private val dao: CharacterDAO) {
         dao.insertLanguages(id,c.languages)
         dao.insertItems(id,c.items.keys,c.items.values)
         dao.insertClazzes(id,c.clazzes.map { it.level },c.clazzes.map {it.name} )
+        dao.link(id,u.name)
         return c
     }
 

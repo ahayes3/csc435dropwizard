@@ -9,7 +9,7 @@ class ItemsMapper : RowMapper<HashMap<String,Int>> {
     override fun map(rs: ResultSet?, ctx: StatementContext?): HashMap<String, Int> {
         val map = HashMap<String,Int>()
         while(rs?.isLast != true) {
-
+            TODO()
         }
         return map
     }

@@ -126,6 +126,12 @@
       </properties>
     </profile>
   </profiles>
+  <repositories>
+    <repository>
+      <id>myndocs-oauth2</id>
+      <url>https://dl.bintray.com/adhesivee/oauth2-server</url>
+    </repository>
+  </repositories>
   <dependencies>
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
