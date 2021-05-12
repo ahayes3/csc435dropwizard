@@ -5,6 +5,7 @@ import ahayes5.api.user.User
 import ahayes5.api.user.UserDAO
 import ahayes5.auth.MyAuthenticator
 import ahayes5.auth.MyAuthorizer
+import ahayes5.auth.UnauthHandler
 import ahayes5.resources.character.CharacterResource
 import ahayes5.resources.user.UserResource
 import io.dropwizard.Application
@@ -45,6 +46,7 @@ object DWcsc435Application : Application<CharacterSheetConfiguration>() {
             BasicCredentialAuthFilter.Builder<User>()
                 .setAuthenticator(MyAuthenticator(udao))
                 .setAuthorizer(MyAuthorizer())
+                .setUnauthorizedHandler(UnauthHandler())
                 .setRealm("MyRealm")
                 .buildAuthFilter()))
         environment?.jersey()?.register(RolesAllowedDynamicFeature::class.java)

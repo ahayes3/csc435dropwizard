@@ -87,4 +87,11 @@ interface CharacterDAO {
     @SqlQuery("select * from characters where id = :id")
     @RegisterRowMapper(CharacterMapper::class)
     fun findById(@Bind("id") id:Long):Character
+
+    @SqlUpdate("update characters set name=:name, background=:background, race=:race, str=:str, dex=:dex," +
+            "con=:con,intel=:intel,wis=:wis,cha=:cha,ac=:ac,init=:init,speed=:speed,maxHp=:maxHp where id=:id")
+    fun updateChar(@Bind("id")id:Long,@Bind("name")name:String?,@Bind("background") background:String?,
+                   @Bind("race")race:String?, @Bind("str") str:Int?,@Bind("dex") dex:Int?,@Bind("con")con:Int?,
+                   @Bind("intel")intel:Int?,@Bind("wis")wis:Int?,@Bind("cha")cha:Int?,@Bind("ac")ac:Int?,
+                   @Bind("init")init:Int?,@Bind("speed")speed:Int?,@Bind("maxHp")maxHp:Int?)
 }

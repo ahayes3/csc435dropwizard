@@ -23,16 +23,10 @@ class CharacterResource(private val dao: CharacterDAO) {
             return Response.status(403,ResourceError(403,"Not authorized to access character.").toJson()).build()
         val c = getChar(id)
         return Response.ok(JSONView(c)).build()
-//        return try {
-//            val c = getChar(id)
-//            return Response.ok(JSONView(c)).build()
-//        } catch (e:IllegalArgumentException) {
-//            Response.status(404).entity(ResourceError(404,"Invalid id: $id").toJson()).build()
-//        }
     }
 
     @GET
-    fun get(@Auth u: User):Response {  //NOT DONE
+    fun get(@Auth u: User):Response {
         val ids = dao.getCharacters(u.name)
         return Response.ok(JSONView(ids)).build()
     }
@@ -51,6 +45,10 @@ class CharacterResource(private val dao: CharacterDAO) {
     @DELETE
     @Path("/{id}")
     fun delete(@Auth u:User,@PathParam("id")id:Long):Response {
+        if(!dao.getAllCid().contains(id))
+            return Response.status(404,ResourceError(404,"Character $id not found").toJson()).build()
+        else if(!dao.getCharacters(u.name).contains(id))
+            return Response.status(403,ResourceError(403,"Not authorized to access character.").toJson()).build()
         val c = getId(u,id)
         dao.deleteChar(id)
         dao.deleteSkills(id)
@@ -59,6 +57,33 @@ class CharacterResource(private val dao: CharacterDAO) {
         dao.deleteLanguages(id)
         dao.deleteItems(id)
         dao.deleteClazzes(id)
+        return Response.ok(JSONView(c)).build()
+    }
+
+    @PUT
+    @Path("/{id}")
+    fun update(@Auth u:User,c:Character,@PathParam("id")id:Long): Response {
+        if(!dao.getAllCid().contains(id))
+            return Response.status(404,ResourceError(404,"Character $id not found").toJson()).build()
+        else if(!dao.getCharacters(u.name).contains(id))
+            return Response.status(403,ResourceError(403,"Not authorized to access character.").toJson()).build()
+
+        dao.deleteSkills(id)
+        dao.deleteFeatures(id)
+        dao.deleteTools(id)
+        dao.deleteLanguages(id)
+        dao.deleteItems(id)
+        dao.deleteClazzes(id)
+
+        dao.updateChar(id,c.name,c.background,c.race,c.str,c.dex,c.con,c.intel,c.wis,c.cha,c.ac,c.init,c.speed,c.maxHp)
+
+        dao.insertSkills(id,c.skills)
+        dao.insertFeatures(id,c.features)
+        dao.insertTools(id,c.tools)
+        dao.insertLanguages(id,c.languages)
+        dao.insertItems(id,c.items.keys,c.items.values)
+        dao.insertClazzes(id,c.clazzes.map {it.level},c.clazzes.map { it.name })
+
         return Response.ok(JSONView(c)).build()
     }
 

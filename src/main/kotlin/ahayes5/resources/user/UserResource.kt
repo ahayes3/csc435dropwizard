@@ -27,11 +27,14 @@ class UserResource(val dao: UserDAO) {
         return Response.ok(JSONView(u)).build()
     }
 
+    @PUT
+    fun changePassAndName(@Auth u:User,newUser:User):Response {
+        val used = dao.getUsernames()
+        if(used.contains(newUser.name))
+            return Response.status(409).entity(ResourceError(409,"Username "+ u.user + " taken.")).build()
 
-//    @PUT
-//    fun login(u:User):Response {
-//
-//        //check if name exists and pass matches
-//        TODO()
-//    }
+        dao.updateUser(u.name,newUser.name,newUser.hash)
+        dao.changeOwner(u.name,newUser.name)
+        return Response.ok(JSONView(newUser)).build()
+    }
 }

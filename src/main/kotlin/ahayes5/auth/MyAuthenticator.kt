@@ -16,8 +16,7 @@ class MyAuthenticator(val dao: UserDAO) : Authenticator<BasicCredentials, User> 
             dao.getHash(p0.username)
         } catch(e:NotFoundException) {
             return Optional.empty()
-        }
-
+        } ?: return Optional.empty()
         if(SCryptUtil.check(p0.password,hash)) {
             println("AUTHENTICATED: ${p0.username}")
             return Optional.of(User(p0.username))
