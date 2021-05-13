@@ -1,0 +1,278 @@
+<html>
+<head>
+    <title>Characters endpoint</title>
+    <style>
+        .respGreen {
+            color: green;
+            width:10%;
+        }
+        .respRed {
+            color: red;
+            width: 10%;
+        }
+        .json {
+            background-color:lightgrey;
+            padding: 1px;
+            margin: 5px;
+            white-space: pre;
+        }
+        .pathParams {
+            border: 1px dashed black;
+            border-collapse: collapse;
+
+        }
+        tr,td,th {
+            border: 1px dashed black;
+        }
+    </style>
+</head>
+<body>
+<h1>Characters endpoint</h1>
+<h3><a href="CharacterJson.html">User JSON representation</a></h3>
+<br>
+<h2>List owned characters</h2>
+<p>GET /characters</p>
+<h3>Description</h3>
+<p>Returns a list of the ids of all characters owned by the authenticated user.</p>
+<br>
+<h3>Responses</h3>
+<ul>
+    <li><span class="respGreen">200</span><span style="width: 10%">&nbsp;OK</span><br>
+        <div>JSON example:&nbsp;</div><div class="json">[ 12, 13 ]</div>
+    </li>
+    <li><span class="respRed">401</span>&nbsp;Unauthorized</li>
+    <li><span class="respRed">403</span>&nbsp;Forbidden</li>
+</ul>
+<br><hr>
+
+<h2>Get character by id</h2>
+<p>GET /characters/{id}</p>
+<h3>Description</h3>
+<p>Creates a character and responds with the character created</p>
+<table class="pathParams">
+    <tr>
+        <th>Field Name</th>
+        <th>Required</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>true</td>
+        <td>long</td>
+        <td>ID of the character</td>
+    </tr>
+</table>
+<br>
+<h3>Responses</h3>
+<ul>
+    <li><span class="respGreen">200</span><span style="width: 10%">&nbsp;OK</span><br>
+        <div>JSON example:&nbsp;</div><div class="json">{
+            "name" : "JEB",
+            "background" : "Thief",
+            "race" : "Elf",
+            "str" : 10,
+            "dex" : 11,
+            "con" : 12,
+            "intel" : 14,
+            "wis" : 13,
+            "cha" : 15,
+            "ac" : 14,
+            "init" : 0,
+            "speed" : 30,
+            "maxHp" : 27,
+            "skills" : [ "Stealth", "Persuasion", "Sleight of Hand" ],
+            "languages" : [ "Common", "Elvish" ],
+            "tools" : [ "Thieves' tools" ],
+            "items" : {
+            "Spoon" : 176,
+            "Dagger" : 5
+            },
+            "features" : [ "Sneak Attack", "Disengage" ],
+            "classes" : [ {
+            "level" : 1,
+            "name" : "rogue"
+            }, {
+            "level" : 1,
+            "name" : "wizard"
+            } ],
+            "id" : 12
+}</div>
+    </li>
+    <li><span class="respRed">401</span>&nbsp;Unauthorized</li>
+    <li><span class="respRed">403</span>&nbsp;Forbidden</li>
+    <li><span class="respRed">404</span>&nbsp;Not Found</li>
+</ul>
+<br><hr>
+
+<h2>Create a character</h2>
+<p>POST /characters}</p>
+<h3>Description</h3>
+<p>Creates a character and responds with the character created.</p>
+<table class="pathParams">
+    <tr>
+        <th>Field Name</th>
+        <th>Required</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>true</td>
+        <td>long</td>
+        <td>ID of the character</td>
+    </tr>
+</table>
+<br>
+<h3>Responses</h3>
+<ul>
+    <li><span class="respGreen">200</span><span style="width: 10%">&nbsp;OK</span><br>
+        <div>JSON example:&nbsp;</div><div class="json">{
+            "name" : "Jeff",
+            "background" : "Thief",
+            "race" : "Elf",
+            "str" : 10,
+            "dex" : 11,
+            "con" : 12,
+            "intel" : 14,
+            "wis" : 13,
+            "cha" : 15,
+            "ac" : 14,
+            "init" : 0,
+            "speed" : 30,
+            "maxHp" : 27,
+            "skills" : [ "Stealth", "Persuasion", "Sleight of Hand" ],
+            "languages" : [ "Common", "Elvish" ],
+            "tools" : [ "Thieves' tools" ],
+            "items" : {
+            "Spoon" : 176,
+            "Dagger" : 5
+            },
+            "features" : [ "Sneak Attack", "Disengage" ],
+            "classes" : [ {
+            "level" : 1,
+            "name" : "rogue"
+            }, {
+            "level" : 1,
+            "name" : "wizard"
+            } ],
+            "id" : 12
+}</div>
+    </li>
+    <li><span class="respRed">401</span>&nbsp;Unauthorized</li>
+    <li><span class="respRed">403</span>&nbsp;Forbidden</li>
+    <li><span class="respRed">404</span>&nbsp;Not Found</li>
+</ul>
+<br>
+
+<h2>Delete a character</h2>
+<p>DELETE /characters/{id}</p>
+<h3>Description</h3>
+<p>Deletes a character and returns the character that was deleted.</p>
+<table class="pathParams">
+    <tr>
+        <th>Field Name</th>
+        <th>Required</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>true</td>
+        <td>long</td>
+        <td>ID of the character</td>
+    </tr>
+</table>
+<br>
+<h3>Responses</h3>
+<ul>
+    <li><span class="respGreen">200</span><span style="width: 10%">&nbsp;OK</span><br>
+        <div>JSON example:&nbsp;</div><div class="json">{
+  "name" : "JEB",
+  "background" : "Thief",
+  "race" : "Elf",
+  "str" : 10,
+  "dex" : 11,
+  "con" : 12,
+  "intel" : 14,
+  "wis" : 13,
+  "cha" : 15,
+  "ac" : 14,
+  "init" : 0,
+  "speed" : 30,
+  "maxHp" : 27,
+  "skills" : [ "Stealth", "Persuasion", "Sleight of Hand" ],
+  "languages" : [ "Common", "Elvish" ],
+  "tools" : [ "Thieves' tools" ],
+  "items" : {
+    "Spoon" : 176,
+    "Dagger" : 5
+  },
+  "features" : [ "Sneak Attack", "Disengage" ],
+  "classes" : [ {
+    "level" : 1,
+    "name" : "rogue"
+  }, {
+    "level" : 1,
+    "name" : "wizard"
+  } ],
+  "id" : 12
+}</div>
+    </li>
+    <li><span class="respRed">401</span>&nbsp;Unauthorized</li>
+    <li><span class="respRed">403</span>&nbsp;Forbidden</li>
+    <li><span class="respRed">404</span>&nbsp;Not Found</li>
+</ul>
+<br>
+<hr>
+
+<h2>Update a character</h2>
+<p>PUT /characters/{id}</p>
+<h3>Description</h3>
+<p>Updates the values in a character and returns the new version of the character.</p>
+<br>
+<h3>Responses</h3>
+<ul>
+    <li><span class="respGreen">200</span><span style="width: 10%">&nbsp;OK</span><br>
+        <div>JSON example:&nbsp;</div><div class="json">{
+            "name" : "Jeff",
+            "background" : "Thief",
+            "race" : "Elf",
+            "str" : 10,
+            "dex" : 11,
+            "con" : 12,
+            "intel" : 14,
+            "wis" : 13,
+            "cha" : 15,
+            "ac" : 14,
+            "init" : 0,
+            "speed" : 30,
+            "maxHp" : 27,
+            "skills" : [ "Stealth", "Persuasion", "Sleight of Hand" ],
+            "languages" : [ "Common", "Elvish" ],
+            "tools" : [ "Thieves' tools" ],
+            "items" : {
+            "Spoon" : 2,
+            "Dagger" : 1
+            },
+            "features" : [ "Sneak Attack", "Disengage" ],
+            "classes" : [ {
+            "level" : 1,
+            "name" : "rogue"
+            }, {
+            "level" : 1,
+            "name" : "wizard"
+            } ],
+            "id" : 13
+}</div>
+    </li>
+    <li><span class="respRed">400</span>&nbsp;Bad Request</li>
+    <li><span class="respRed">401</span>&nbsp;Unauthorized</li>
+    <li><span class="respRed">403</span>&nbsp;Forbidden</li>
+    <li><span class="respRed">404</span>&nbsp;Not Found</li>
+</ul>
+<br>
+
+</body>
+
+</html>

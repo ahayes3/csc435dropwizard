@@ -6,8 +6,8 @@ server:
       port: 8080
 #    - type: https
 #      port: 8443
-#      keyStorePath: example.keystore
-#      keyStorePassword: example
+#      keyStorePath: characterdb.keystore
+#      keyStorePassword: 1234
     #this requires the alpn-boot library on the JVM's boot classpath
     #- type: h2
     #  port: 8445

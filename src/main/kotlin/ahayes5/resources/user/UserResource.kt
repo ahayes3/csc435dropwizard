@@ -4,15 +4,13 @@ import ahayes5.api.user.User
 import ahayes5.api.user.UserDAO
 import ahayes5.resources.JSONView
 import ahayes5.resources.error.ResourceError
-import com.lambdaworks.crypto.SCryptUtil
 import io.dropwizard.auth.Auth
-import io.dropwizard.jersey.sessions.Session
-import org.eclipse.jetty.server.session.SessionHandler
-
-import javax.ws.rs.*
+import javax.ws.rs.POST
+import javax.ws.rs.PUT
+import javax.ws.rs.Path
+import javax.ws.rs.Produces
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
-import kotlin.random.Random
 
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)

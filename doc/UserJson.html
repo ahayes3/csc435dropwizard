@@ -1,0 +1,49 @@
+<html>
+<head>
+    <title>User JSON representation</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        .json {
+            background-color:lightgrey;
+            padding: 1px;
+            margin: 5px;
+            white-space: pre;
+        }
+        tr,td,th {
+            border: 1px dashed black;
+        }
+    </style>
+</head>
+<body>
+<h1>User JSON representation</h1>
+<p>All fields are required for the json to be accepted.</p>
+<br>
+<h2>User fields</h2>
+<table>
+    <tr>
+        <th>Field Name</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>string</td>
+        <td>The username</td>
+    </tr>
+    <tr>
+        <td>pass</td>
+        <td>string</td>
+        <td>The password for the user</td>
+    </tr>
+</table>
+<hr><br>
+<h2>Example:</h2>
+<div class="json">{
+    "name": "example",
+    "pass": "1234"
+}
+</div>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<html>
+<head>
+    <title>Character JSON representation</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        .json {
+            background-color:lightgrey;
+            padding: 1px;
+            margin: 5px;
+            white-space: pre;
+        }
+        .jsonParam {
+            border: 1px dashed black;
+            border-collapse: collapse;
+
+        }
+        tr,td,th {
+            border: 1px dashed black;
+        }
+    </style>
+</head>
+<body>
+<h1>Character JSON representation</h1>
+<p>All fields are required for the json to be accepted.</p>
+<br>
+<h2>Character fields</h2>
+<table>
+    <tr>
+        <th>Field Name</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>string</td>
+        <td>The name of the character</td>
+    </tr>
+    <tr>
+        <td>background</td>
+        <td>string</td>
+        <td>The character's background</td>
+    </tr>
+    <tr>
+        <td>race</td>
+        <td>string</td>
+        <td>The character's race</td>
+    </tr>
+    <tr>
+        <td>str</td>
+        <td>integer</td>
+        <td>The character's strength</td>
+    </tr>
+    <tr>
+        <td>dex</td>
+        <td>integer</td>
+        <td>The character's dexterity</td>
+    </tr>
+    <tr>
+        <td>con</td>
+        <td>integer</td>
+        <td>The character's constitution</td>
+    </tr>
+    <tr>
+        <td>intel</td>
+        <td>integer</td>
+        <td>The character's intelligence</td>
+    </tr>
+    <tr>
+        <td>wis</td>
+        <td>integer</td>
+        <td>The character's wisdom</td>
+    </tr>
+    <tr>
+        <td>cha</td>
+        <td>integer</td>
+        <td>The character's charisma</td>
+    </tr>
+    <tr>
+        <td>ac</td>
+        <td>integer</td>
+        <td>The character's armor class</td>
+    </tr>
+    <tr>
+        <td>init</td>
+        <td>integer</td>
+        <td>The character's initiative bonus</td>
+    </tr>
+    <tr>
+        <td>speed</td>
+        <td>integer</td>
+        <td>The character's movement speed in feet</td>
+    </tr>
+    <tr>
+        <td>maxHp</td>
+        <td>integer</td>
+        <td>The character's maximum hit points</td>
+    </tr>
+    <tr>
+        <td>skills</td>
+        <td>list&lt;string&gt;</td>
+        <td>The skill proficiencies of the character</td>
+    </tr>
+    <tr>
+        <td>languages</td>
+        <td>list&lt;string&gt;</td>
+        <td>The languages the character knows</td>
+    </tr>
+    <tr>
+        <td>tools</td>
+        <td>list&lt;string&gt;</td>
+        <td>The tool proficiencies of the character</td>
+    </tr>
+    <tr>
+        <td>items</td>
+        <td>Map&lt;string,integer&gt;</td>
+        <td>The names and quantities of tools the character has</td>
+    </tr>
+    <tr>
+        <td>features</td>
+        <td>list&lt;string&gt;</td>
+        <td>The features of the character</td>
+    </tr>
+    <tr>
+        <td>classes</td>
+        <td>list&lt;class&gt;</td>
+        <td>The classes of the character</td>
+    </tr>
+</table>
+<br>
+<h2>Class fields</h2>
+<table>
+    <tr>
+        <th>Field Name</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>level</td>
+        <td>integer</td>
+        <td>The amount of levels in the class</td>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>string</td>
+        <td>The name of the class</td>
+    </tr>
+</table>
+<hr><br>
+<h2>Example:</h2>
+<div class="json">{
+    "name" : "JEB",
+    "background" : "Thief",
+    "race" : "Elf",
+    "str" : 10,
+    "dex" : 11,
+    "con" : 12,
+    "intel" : 14,
+    "wis" : 13,
+    "cha" : 15,
+    "ac" : 14,
+    "init" : 0,
+    "speed" : 30,
+    "maxHp" : 27,
+    "skills" : [ "Stealth", "Persuasion", "Sleight of Hand" ],
+    "languages" : [ "Common", "Elvish" ],
+    "tools" : [ "Thieves' tools" ],
+    "items" : {
+    "Spoon" : 176,
+    "Dagger" : 5
+    },
+    "features" : [ "Sneak Attack", "Disengage" ],
+    "classes" : [ {
+        "level" : 1,
+        "name" : "rogue"
+    }, {
+        "level" : 1,
+        "name" : "wizard"
+    } ],
+    "id" : 12
+}
+</div>
+</body>
+</html>
