@@ -25,10 +25,10 @@
       "Persuasion",
       "Sleight of Hand"
     ],
-    "items": [
-      "Dagger",
-      "Spoon"
-    ],
+    "items": {
+      "Dagger": 1,
+      "Spoon": 2
+    },
     "classes": [
       {
         "name": "rogue",

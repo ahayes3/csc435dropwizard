@@ -49,7 +49,7 @@ class CharacterResource(private val dao: CharacterDAO) {
             return Response.status(404,ResourceError(404,"Character $id not found").toJson()).build()
         else if(!dao.getCharacters(u.name).contains(id))
             return Response.status(403,ResourceError(403,"Not authorized to access character.").toJson()).build()
-        val c = getId(u,id)
+        val c = getChar(id)
         dao.deleteChar(id)
         dao.deleteSkills(id)
         dao.deleteFeatures(id)
@@ -57,6 +57,7 @@ class CharacterResource(private val dao: CharacterDAO) {
         dao.deleteLanguages(id)
         dao.deleteItems(id)
         dao.deleteClazzes(id)
+        dao.deleteLink(id)
         return Response.ok(JSONView(c)).build()
     }
 

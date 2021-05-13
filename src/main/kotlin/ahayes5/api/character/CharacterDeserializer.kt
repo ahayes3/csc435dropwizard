@@ -19,7 +19,7 @@ class CharacterDeserializer constructor(vc: Class<*>? = null) : StdDeserializer<
         val tools = mapper.convertValue(head.get("tools"),object: TypeReference<List<String>>(){})
         val features = mapper.convertValue(head.get("features"),object: TypeReference<List<String>>(){})
         val items= mapper.convertValue(head.get("items"),object: TypeReference<Map<String,Int>>(){})
-        val n = head.get("clazzes")
+        val n = head.get("classes")
         val clazzes = mapper.convertValue(n,object:TypeReference<List<Clazz>>(){})
 
         return Character(head.get("name").textValue(), head.get("background").textValue(),head.get("race").textValue(),
@@ -30,4 +30,14 @@ class CharacterDeserializer constructor(vc: Class<*>? = null) : StdDeserializer<
     }
 
     constructor() :this(null){}
+}
+
+class ClazzDeserializer constructor(vc:Class<*>? = null) : StdDeserializer<Clazz>(vc) {
+    override fun deserialize(p0: JsonParser, p1: DeserializationContext?): Clazz {
+        val mapper = ObjectMapper()
+        val head:JsonNode = p0.codec.readTree(p0)
+        val level = mapper.convertValue(head.get("level"), object: TypeReference<Int>(){})
+        val name = head.get("name").textValue()
+        return Clazz(level,name)
+    }
 }

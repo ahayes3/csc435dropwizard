@@ -1,9 +1,8 @@
 {
-  "character": {
     "name": "JEB",
     "background": "Thief",
     "race": "Elf",
-    "languages": "Common, Elvish",
+    "languages": ["Common", "Elvish"],
     "str": 10,
     "dex": 11,
     "con": 12,
@@ -26,10 +25,10 @@
       "Persuasion",
       "Sleight of Hand"
     ],
-    "items": [
-      "Dagger",
-      "Spoon"
-    ],
+    "items": {
+      "Dagger": 5,
+      "Spoon": 176
+    },
     "classes": [
       {
         "name": "rogue",
@@ -40,5 +39,4 @@
         "level": 1
       }
     ]
-  }
 }

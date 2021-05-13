@@ -1,4 +1,3 @@
 #!/bin/bash
-curl --cookie-jar cookies -X PUT -H "Content-Type: application/json" -d @user.json localhost:8080/users
 read -p "UUID: " id
-curl --cookie-jar cookies --cookie cookies -X DELETE localhost:8080/characters/$id > out.json
+curl --cookie-jar cookies --cookie cookies -X DELETE test:1234@localhost:8080/characters/$id > out.json

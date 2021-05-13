@@ -66,22 +66,25 @@ interface CharacterDAO {
     @SqlUpdate("DELETE FROM characters c WHERE c.id = :id")
     fun deleteChar(@Bind("id") id:Long)
 
-    @SqlUpdate("DELETE FROM skills c WHERE c.id = :id")
+    @SqlUpdate("DELETE FROM user_characters c WHERE c.id=:id")
+    fun deleteLink(@Bind("id")id:Long)
+
+    @SqlUpdate("DELETE FROM skills c WHERE c.c_id = :id")
     fun deleteSkills(@Bind("id") id:Long)
 
-    @SqlUpdate("DELETE FROM features c WHERE c.id = :id")
+    @SqlUpdate("DELETE FROM features c WHERE c.c_id = :id")
     fun deleteFeatures(@Bind("id") id:Long)
 
-    @SqlUpdate("DELETE FROM tools c WHERE c.id = :id")
+    @SqlUpdate("DELETE FROM tools c WHERE c.c_id = :id")
     fun deleteTools(@Bind("id") id:Long)
 
-    @SqlUpdate("DELETE FROM languages c WHERE c.id = :id")
+    @SqlUpdate("DELETE FROM languages c WHERE c.c_id = :id")
     fun deleteLanguages(@Bind("id") id:Long)
 
-    @SqlUpdate("DELETE FROM items c WHERE c.id = :id")
+    @SqlUpdate("DELETE FROM items c WHERE c.c_id = :id")
     fun deleteItems(@Bind("id") id:Long)
 
-    @SqlUpdate("DELETE FROM clazzes c WHERE c.id = :id")
+    @SqlUpdate("DELETE FROM clazzes c WHERE c.c_id = :id")
     fun deleteClazzes(@Bind("id") id:Long)
 
     @SqlQuery("select * from characters where id = :id")
